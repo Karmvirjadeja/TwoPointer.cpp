@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        vector<int> result;
+        unordered_map<char, int> lastOccurrence;
+
+
+        // First loop: Store the last occurrence of each character
+        for (int i = 0; i < s.length(); i++) {
+            lastOccurrence[s[i]] = i;
+        }
+
+
+        int maxIndex = 0;
+        int prev = -1;
+
+
+        // Second loop: Create the partitions
+        for (int i = 0; i < s.length(); i++) {
+            maxIndex = max(maxIndex, lastOccurrence[s[i]]);
+            if (i == maxIndex) {
+                result.push_back(i - prev);
+                prev = i;
+            }
+        }
+
+
+        return result;
+    }
+};
+
+
+
